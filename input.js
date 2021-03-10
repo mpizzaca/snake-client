@@ -12,6 +12,16 @@ const handleUserInput = input => {
     conn.write('Move: right');
   } else if (input === '\u0003') {
     process.exit();
+  } else if (input === '1') {
+    conn.write('Say: /(´▽`)/');
+  } else if (input === '2') {
+    conn.write('Say: \\(´▽`)\\');
+  } else if (input === '3') {
+    conn.write('Say: \u001b[31mRed!')
+  } else if (input === '4') {
+    conn.write('Say: \u001b[34mBlue!')
+  } else if (input === '5') {
+    conn.write('Say: \u001b[32mGreen!')
   }
 };
 

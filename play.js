@@ -22,14 +22,13 @@ conn.on('close', () => {
   process.exit();
 });
 
-// Fun spinner name :)
-const spin = () => {
-  const chars = ['|', '/', '-', '\\'];
-  for (let i = 0; i < 4; i++) {
-    setTimeout(() => {
-      conn.write('Say: ' + chars[i] + ' i dream of spinners ' + chars[i]);
-    }, i * 200);
-  }
-};
-
-setInterval(spin, 800);
+// // Fun spinner messages :)
+// const spin = () => {
+//   const chars = ['|', '/', '-', '\\'];
+//   for (let i = 0; i < 4; i++) {
+//     setTimeout(() => {
+//       conn.write('Say: ' + chars[i] + 'spin with me' + chars[i]);
+//     }, i * 200);
+//   }
+// };
+// setInterval(spin, 800);
