@@ -1,7 +1,5 @@
 const  { connect } = require('./client');
-const stdin = process.stdin;
-stdin.setRawMode(true);
-stdin.setEncoding('utf8');
+
 
 console.log('Connecting ...');
 const conn = connect();
@@ -11,8 +9,8 @@ const conn = connect();
 //   conn.write('Name: MP!');
 // });
 
-// Pressing w/a/s/d will send up/left/down/right move command to the server.
-stdin.on('data', input => {
+const handleUserInput = input => {
+  // Pressing w/a/s/d will send up/left/down/right move command to the server.
   if (input === 'w') {
     conn.write('Move: up');
   } else if (input === 'a') {
@@ -24,9 +22,24 @@ stdin.on('data', input => {
   } else if (input === '\u0003') {
     process.exit();
   }
-});
+};
 
-// When the server sends us some data, print it to console.
+const setupInput = () => {
+  // setup
+  const stdin = process.stdin;
+  stdin.setRawMode(true);
+  stdin.setEncoding('utf8');
+  stdin.resume();
+
+  // input handling
+  stdin.on('data', handleUserInput);
+
+  return stdin;
+}
+
+setupInput();
+
+// When the server sends us some data, print it to console
 conn.on('data', data => {
   console.log(data);
 });
@@ -42,7 +55,7 @@ const spin = () => {
   const chars = ['|', '/', '-', '\\'];
   for (let i = 0; i < 4; i++) {
     setTimeout(() => {
-      conn.write('Name: ' + chars[i]);
+      conn.write('Name: MP' + chars[i]);
     }, i * 200);
   }
 };
